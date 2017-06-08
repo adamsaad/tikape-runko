@@ -22,7 +22,12 @@ public class Main {
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
+        get("/aihealueet/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("aihealue", aihealueDao.findOne(Integer.parseInt(req.params("id"))));
 
+            return new ModelAndView(map, "aihealue");
+        }, new ThymeleafTemplateEngine());
         get("/opiskelijat", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("opiskelijat", opiskelijaDao.findAll());

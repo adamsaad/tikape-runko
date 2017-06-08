@@ -29,7 +29,26 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
 
     @Override
     public Aihealue findOne(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM aihealue WHERE id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+
+        Integer id = rs.getInt("id");
+        String aihe = rs.getString("aihe");
+
+        Aihealue aihealue = new Aihealue(id, aihe);
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return aihealue;
     }
 
     @Override
