@@ -4,6 +4,7 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import tikape.runko.database.AihealueDao;
 import tikape.runko.database.Database;
 import tikape.runko.database.OpiskelijaDao;
 
@@ -14,10 +15,10 @@ public class Main {
         database.init();
 
         OpiskelijaDao opiskelijaDao = new OpiskelijaDao(database);
-
+        AihealueDao aihealueDao = new AihealueDao(database);
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viesti", "tervehdys");
+            map.put("aihealueet", aihealueDao.findAll());
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());

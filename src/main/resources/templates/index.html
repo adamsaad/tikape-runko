@@ -7,10 +7,12 @@
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1>TIKAPE-keskustelublogi!</h1>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
+        <ol>
+            <li th:each="aihealue: ${aihealueet}">
+                <a th:href="${'/aihealueet/' + aihealue.id}"><span th:text="${aihealue.aihe}">aihe</span></a>
+            </li>
+        </ol>
     </body>
 </html>
